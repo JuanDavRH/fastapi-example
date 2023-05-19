@@ -33,11 +33,9 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
           SONAR_PROJECT_KEY: johnpenagos6
           SONAR_ORGANIZATION: johnpenagos6
-          run: |
-           sonar-scanner-x
+      - name: Run SonarScanner
+        run: sonar-scanner -X
         
-
-  
       - name: Build Docker image
         run: docker build -t devco-fast-api-example:latest .
 
@@ -46,4 +44,3 @@ jobs:
 
       - name: Publish Docker image
         run: docker push johnpenagos6/devco-fast-api-example:latest
-
