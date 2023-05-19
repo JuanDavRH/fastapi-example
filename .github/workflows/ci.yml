@@ -29,7 +29,7 @@ jobs:
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         with:
-            projectBaseDir: ./path/fastapi-example
+            projectBaseDir: .
             sonarToken: ${{ secrets.SONAR_TOKEN }}
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
