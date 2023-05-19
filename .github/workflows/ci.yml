@@ -38,5 +38,8 @@ jobs:
       - name: Log in to DockerHub
         run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
+      - name: tag
+        run: docker tag devco-fast-api-example:latest johnpenagos6/devco-fast-api-example:latest
+
       - name: Publish Docker image
         run: docker push johnpenagos6/devco-fast-api-example:latest
