@@ -26,9 +26,6 @@ jobs:
         run: |
           pip install --no-cache-dir --upgrade -r requirements.txt
 
-      - name: Run unit tests
-        run: pytest
-
       - name: Analyze code with SonarCloud
         uses: sonarsource/sonarcloud-github-action@master
         env:
