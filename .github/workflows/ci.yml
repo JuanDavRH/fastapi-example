@@ -26,6 +26,9 @@ jobs:
         run: |
           pip install --no-cache-dir --upgrade -r requirements.txt
 
+      - name: Run SonarScanner
+        run: sonar-scanner -X
+
       - name: SonarCloud Scan
         uses: sonarsource/sonarcloud-github-action@master
         env:
@@ -33,8 +36,6 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}     
           SONAR_PROJECT_KEY: johnpenagos6
           SONAR_ORGANIZATION: johnpenagos6
-      - name: Run SonarScanner
-        run: sonar-scanner -X
         
       - name: Build Docker image
         run: docker build -t devco-fast-api-example:latest .
