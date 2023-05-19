@@ -1,0 +1,44 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      - name: Set up Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: 3.x
+
+      - name: pruebas unitarias
+        run: |
+         python -m unittest discover tests
+
+      - name: Install dependencies
+        run: |
+          pip install --no-cache-dir --upgrade -r requirements.txt
+
+      - name: Run unit tests
+        run: pytest
+
+      - name: Analyze code with SonarCloud
+        uses: sonarsource/sonarcloud-github-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+      - name: Build Docker image
+        run: docker build -t devco-fast-api-example:latest .
+
+      - name: Log in to DockerHub
+        run: docker login -u ${{ secrets.DOCKERHUB_USERNAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
+
+      - name: Publish Docker image
+        run: docker push johnpenagos6/devco-fast-api-example:latest
